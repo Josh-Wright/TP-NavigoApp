@@ -28,7 +28,7 @@ def getLocationData(lineRef,operatorRef,params):
             print("Request OK")
             # print siri  XML as a string
             xml_string = response.text
-            print(f"XML Response :\n{xml_string}")
+            # print(f"XML Response :\n{xml_string}")
             return xml_string
             
         else:
@@ -122,5 +122,6 @@ def parse_siri_xml(xml_string):
 # The XML string you provided
 #Testing
 print(json.dumps(parse_siri_xml(getLocationData('U1','NDTR',params)),indent=4))
-testing = parse_siri_xml(getLocationData('U1','NDTR',params))[1]["MonitoredVehicleJourney"]["VehicleLocation"]
+testing = parse_siri_xml(getLocationData('U1','NDTR',params))[0
+                                                              ]["MonitoredVehicleJourney"]["VehicleLocation"]
 print(f"{testing['Latitude']},{testing['Longitude']}")
