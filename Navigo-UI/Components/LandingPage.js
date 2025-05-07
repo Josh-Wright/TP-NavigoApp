@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,27 +6,28 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
+  Alert,
 } from "react-native";
-
 import Icon from "react-native-vector-icons/FontAwesome";
-import Svg, { Circle, Rect, Path } from "react-native-svg";
+import Svg, { Path } from "react-native-svg";
+import axios from "axios"; 
 
-function InputField({ label, placeholder }) {
+function InputField({ label, placeholder, value, onChangeText }) {
   return (
     <View style={styles.inputContainer}>
       <Text style={{ fontWeight: "bold", marginTop: 12 }}>{label}</Text>
       <View style={styles.inputRow}>
-        <TextInput style={styles.input} placeholder={placeholder} />
+        <TextInput
+          style={styles.input}
+          placeholder={placeholder}
+          value={value}
+          onChangeText={onChangeText}
+        />
         <TouchableOpacity
           style={styles.microphoneButton}
           onPress={() => alert("Listening...")}
         >
-          <Icon
-            name="microphone"
-            size={15}
-            style={styles.microphoneText}
-            color="#ffffff"
-          />
+          <Icon name="microphone" size={15} color="#ffffff" />
         </TouchableOpacity>
       </View>
     </View>
@@ -51,23 +52,86 @@ function ActionButton({ label, style, onPress, children }) {
   );
 }
 
-function LocationBox({ label, iconName,iconColour,iconBackgroundColour }) {
+function LocationBox({
+  label,
+  iconName,
+  iconColour,
+  iconBackgroundColour,
+  onPress,
+}) {
   return (
-    <TouchableOpacity
-      style={styles.locationBox}
-      onPress={() => alert(`${label} selected!`)}
-    >
-      <View style={[styles.iconWrapper, { backgroundColor: iconBackgroundColour }]}>
-  <Icon name={iconName} size={20} color={iconColour} />
-</View>
-
-
+    <TouchableOpacity style={styles.locationBox} onPress={onPress}>
+      <View
+        style={[styles.iconWrapper, { backgroundColor: iconBackgroundColour }]}
+      >
+        <Icon name={iconName} size={20} color={iconColour} />
+      </View>
       <Text style={styles.locationText}>{label}</Text>
     </TouchableOpacity>
   );
 }
 
 export default function LandingPage() {
+  const [origin, setOrigin] = useState("");
+  const [destination, setDestination] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchRouteInfo = async () => {
+    if (!origin || !destination) {
+      Alert.alert("Error", "Please enter both origin and destination");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await axios.get(
+        "http://10.135.26.3:5000/api/getRouteInfo",
+        {
+          params: {
+            origin: origin,
+            destination: destination,
+            mode: "transit",
+          },
+        }
+      );
+
+      const data = response.data;
+
+      if (data.status === "success") {
+        const routeInfo = data.data;
+        Alert.alert(
+          "Route Information",
+          `From: ${routeInfo.origin.address}\n` +
+            `To: ${routeInfo.destination.address}\n` +
+            `Duration: ${routeInfo.duration}\n` +
+            `Distance: ${routeInfo.distance}\n` +
+            `Steps: ${routeInfo.steps.length} steps in your journey`,
+          [{ text: "OK" }]
+        );
+      } else {
+        Alert.alert("Error", data.message || "Failed to get route information");
+      }
+    } catch (error) {
+      Alert.alert(
+        "Error",
+        error.response?.data?.message ||
+          error.message ||
+          "Failed to connect to the server"
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleLocationSelect = (location) => {
+    if (!origin) {
+      setOrigin(location);
+    } else {
+      setDestination(location);
+    }
+  };
+
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -77,18 +141,8 @@ export default function LandingPage() {
           style={styles.logo}
         />
         <TouchableOpacity
-          style={{
-            flexDirection: "row",
-            backgroundColor: "#0c9588",
-            paddingVertical: 10,
-            paddingHorizontal: 14,
-            borderRadius: 24,
-            marginLeft: "auto",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 20,
-          }}
-          onPress={() => alert("This coursework is driving me nuts")}
+          style={styles.helpButton}
+          onPress={() => alert("Help button pressed")}
         >
           <Svg width="16" height="16" viewBox="0 0 640 512">
             <Path
@@ -107,27 +161,30 @@ export default function LandingPage() {
 
       {/* Main Content */}
       <View style={styles.content}>
-        <InputField label="From:" placeholder="Current location" />
-        <InputField label="To:" placeholder="Where would you like to go?" />
+        <InputField
+          label="From:"
+          placeholder="Current location"
+          value={origin}
+          onChangeText={setOrigin}
+        />
+        <InputField
+          label="To:"
+          placeholder="Where would you like to go?"
+          value={destination}
+          onChangeText={setDestination}
+        />
 
-        <View
-          style={{
-            alignSelf: "flex-start",
-            paddingHorizontal: 10,
-            marginTop: 5,
-          }}
-        >
-          <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-            When do you want to travel?
-          </Text>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>When do you want to travel?</Text>
         </View>
 
         {/* Buttons */}
         <View style={styles.buttonContainer}>
           <ActionButton
-            label="Depart Now"
+            label={isLoading ? "Loading..." : "Depart Now"}
             style={styles.primaryButton}
-            onPress={() => alert("Departing now!")}
+            onPress={fetchRouteInfo}
+            disabled={isLoading}
           >
             <Svg
               style={{ marginEnd: 15 }}
@@ -160,50 +217,58 @@ export default function LandingPage() {
           </ActionButton>
         </View>
 
-        {/* Voice Instruction */}
         <View style={styles.instructionContainer}>
           <TouchableOpacity onPress={() => alert("Listening...")}>
             <View style={styles.microphoneIcon}>
               <Icon name="microphone" size={20} color="#ffffff" />
             </View>
           </TouchableOpacity>
-
           <Text>Listening... Say your journey</Text>
         </View>
       </View>
 
       {/* Save Locations */}
-      <View
-        style={{
-          alignSelf: "flex-start",
-          paddingHorizontal: 10,
-          marginTop: 12,
-        }}
-      >
+      <View style={styles.sectionHeader}>
         <Text style={styles.titleText}>Saved Locations</Text>
       </View>
 
       <View style={styles.savedLocationsContainer}>
-        <LocationBox label="Home" iconName="home" iconColour={"#3a74ec"} iconBackgroundColour={"#dbeafe"}/>
-        <LocationBox label="Work" iconName="briefcase" iconColour ={"#eb5d12"} iconBackgroundColour={"#ffecd4"}/>
-        <LocationBox label="Hospital" iconName="hospital-o" iconColour={"#de3c3d"} iconBackgroundColour={"#fbd0d0"}/>
-        <LocationBox label="University" iconName="graduation-cap" iconColour ={"#09966a"} iconBackgroundColour={"#afe9d0"} />
+        <LocationBox
+          label="Home"
+          iconName="home"
+          iconColour="#3a74ec"
+          iconBackgroundColour="#dbeafe"
+          onPress={() => handleLocationSelect("Home")}
+        />
+        <LocationBox
+          label="Work"
+          iconName="briefcase"
+          iconColour="#eb5d12"
+          iconBackgroundColour="#ffecd4"
+          onPress={() => handleLocationSelect("Work")}
+        />
+        <LocationBox
+          label="Hospital"
+          iconName="hospital-o"
+          iconColour="#de3c3d"
+          iconBackgroundColour="#fbd0d0"
+          onPress={() => handleLocationSelect("Hospital")}
+        />
+        <LocationBox
+          label="University"
+          iconName="graduation-cap"
+          iconColour="#09966a"
+          iconBackgroundColour="#afe9d0"
+          onPress={() => handleLocationSelect("University")}
+        />
       </View>
-      <View
-          style={{
-            
-            alignSelf: "center",
-            paddingHorizontal: 10,
-            marginTop: 15,
-          }}
-        >
-          <Text style={{ fontSize: 16, color:'grey'}}>
-            double tap anywhere to activate voice control..
-          </Text>
-        </View>
-    </View>
 
-    
+      <View style={styles.voiceHint}>
+        <Text style={styles.voiceHintText}>
+          double tap anywhere to activate voice control..
+        </Text>
+      </View>
+    </View>
   );
 }
 
@@ -361,7 +426,18 @@ const styles = StyleSheet.create({
     width: 30,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 15, // Ensures rounding
+    borderRadius: 15, 
   },
-  
+  voiceHintText: { fontSize: 16, color: "grey" },
+  helpButton: {
+    flexDirection: "row",
+    backgroundColor: "#0c9588",
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 24,
+    marginLeft: "auto",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
+  },
 });

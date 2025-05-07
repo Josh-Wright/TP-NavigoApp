@@ -1,8 +1,9 @@
 from flask import Flask, jsonify, request
 from GoogleMapsApiHandler import GoogleMapsHandler
-import json
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # This will enable CORS for all routes
 
 @app.route('/api/getRouteInfo', methods=['GET'])
 def get_route_info():
@@ -32,7 +33,9 @@ def get_route_info():
             'message': str(e)
         }), 500
 
-
+@app.route('/')
+def home():
+    return "Flask server is running. Use /api/getRouteInfo endpoint for directions."
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)  # This makes it accessible on all network interfaces
