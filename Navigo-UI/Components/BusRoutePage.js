@@ -19,7 +19,9 @@ const destination = {
   latitude: 52.91902299061751,
   longitude: -1.472203979339939,
 };
-const REDACTED = "sike";
+const REDACTED = "you are not getting my key";
+const waypoint1 = { latitude: 52.923025311374005, longitude: -1.4813591528924195 };
+const waypoint2 = { latitude: 52.92430774323713, longitude: -1.4809774950254628 };
 
 export default function BusRoutePage() {
   return (
@@ -47,6 +49,7 @@ export default function BusRoutePage() {
             apikey={REDACTED}
             strokeWidth={3}
             strokeColor="black"
+            waypoints={[waypoint1, waypoint2]}
           />
         </MapView>
         <Support />
