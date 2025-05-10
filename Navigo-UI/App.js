@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import LandingPage from "./Components/LandingPage";
 import BusRoutePage from "./Components/BusRoutePage";
 
+
 export default function App() {
   return (
     <>

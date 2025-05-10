@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "",
     alignItems: "center",
-    paddingTop: 60,
+
   },
   header: {
     flexDirection: "row",
@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
   titleContainer: {
     alignSelf: "flex-start",
     paddingHorizontal: 10,
-    marginTop: 80,
+    marginTop: 40,
   },
   titleText: {
     fontWeight: "bold",
@@ -294,6 +294,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     marginTop: 5,
+  
   },
   inputContainer: {
     borderWidth: 1,
@@ -301,6 +302,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 10,
     paddingHorizontal: 10,
+  
+    
   },
   inputRow: {
     flexDirection: "row",
@@ -316,6 +319,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: "#ccc",
+    
   },
   microphoneButton: {
     marginLeft: 10,
