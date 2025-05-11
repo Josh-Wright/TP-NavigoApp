@@ -13,20 +13,22 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import MapView, { Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
+import Constants from 'expo-constants';
 
 const origin = { latitude: 52.929488857183586, longitude: -1.497704357336529 };
 const destination = {
   latitude: 52.91902299061751,
   longitude: -1.472203979339939,
 };
-const REDACTED = "REDACTED";
+const GOOGLE_MAPS_APIKEY = Constants.expoConfig.extra.GOOGLE_MAPS_APIKEY;
+console.log(GOOGLE_MAPS_APIKEY);
 const waypoint1 = {
   latitude: 52.923025311374005,
   longitude: -1.4813591528924195,
 };
 const waypoint2 = {
   latitude: 52.92430774323713,
-  longitude: -1.4809774950254628,
+  longitude: -1.480977495025462,
 };
 
 export default function BusRoutePage() {
@@ -40,7 +42,7 @@ export default function BusRoutePage() {
         <NextStop/>
         <Destination />
         <View style={styles.mapContainer}>
-          <MapView
+        <MapView
             style={styles.mapView}
             initialRegion={{
               latitude: (origin.latitude + destination.latitude) / 2,
@@ -54,7 +56,7 @@ export default function BusRoutePage() {
             <MapViewDirections
               origin={origin}
               destination={destination}
-              apikey={REDACTED}
+              apikey={GOOGLE_MAPS_APIKEY}
               strokeWidth={3}
               strokeColor="black"
               waypoints={[waypoint1, waypoint2]}
