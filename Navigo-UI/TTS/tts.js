@@ -15,7 +15,7 @@ const startListening = SpeechRecognition.startListening,
     abortListening = SpeechRecognition.abortListening;
 
 // Fetch the relevant values from the hook
-const { transcript, resetTranscript, browserSupportsSpeechRecognition, isMicrophoneAvailable } = useSpeechRecognition();
+const { transcript, resetTranscript, browserSupportsSpeechRecognition, browserSupportsContinuousListening, isMicrophoneAvailable } = useSpeechRecognition();
 
 
 
