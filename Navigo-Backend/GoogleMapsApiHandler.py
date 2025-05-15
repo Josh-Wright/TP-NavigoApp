@@ -1,5 +1,5 @@
 import googlemaps
-from datetime import datetime
+from datetime import datetime,timedelta
 from dotenv import load_dotenv
 import os
 import json
@@ -27,7 +27,7 @@ class GoogleMapsHandler:
                       departure_time: datetime = None):
       
         if departure_time is None:
-            departure_time = datetime.now()
+            departure_time = datetime.now() + timedelta(hours=12)
             
         return self.client.directions(
             origin, 
@@ -115,9 +115,9 @@ class GoogleMapsHandler:
         return simplified
 
 
-# if __name__ == "__main__":
-#     # Example usage
-#     maps = GoogleMapsWrapper()
+if __name__ == "__main__":
+    # Example usage
+    maps = GoogleMapsHandler()
     
 #     # Geocoding example
 #     geocode_result = maps.geocode_address('1600 Amphitheatre Parkway, Mountain View, CA')
@@ -128,11 +128,11 @@ class GoogleMapsHandler:
 #     print("Reverse Geocode Result:", reverse_geocode_result)
     
 #     # Directions 
-#     directions_result = maps.get_directions(
-#         origin="de22 3fy",
-#         destination="Queens Medical Centre, Nottingham",
-#         mode="transit"
-#     )
+    directions_result = maps.get_directions(
+        origin="de22 3fy",
+        destination="Queens Medical Centre, Nottingham",
+        mode="transit"
+    )
     
-#     parsed_directions = maps.parse_directions(directions_result)
-#     print("Parsed Directions:", json.dumps(parsed_directions, indent=4))
+    parsed_directions = maps.parse_directions(directions_result)
+    print("Parsed Directions:", json.dumps(directions_result, indent=4))
