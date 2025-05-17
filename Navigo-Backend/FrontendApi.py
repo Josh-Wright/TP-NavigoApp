@@ -4,33 +4,52 @@ import json
 
 app = Flask(__name__)
 
+
+def get_maps_route(g_maps_handler,origin, destination, mode):
+    
+    directions_result = g_maps_handler.get_directions(
+        origin=origin,
+        destination=destination,
+        mode=mode
+    )
+    
+   
+    
+    return directions_result
+
+
 @app.route('/api/getRouteInfo', methods=['GET'])
 def get_route_info():
-    # Get parameters from query string
-    origin = request.args.get('origin', 'DE22 3FY')  # default values
-    destination = request.args.get('destination', 'DE22 1GB')
-    mode = request.args.get('mode', 'transit')  # transit, driving, walking, bicycling
-    
     try:
         g_maps_handler = GoogleMapsHandler()
-        directions_result = g_maps_handler.get_directions(
-            origin=origin,
-            destination=destination,
-            mode=mode
-        )
+       
+        route = get_maps_route(g_maps_handler,"DE22 3aw", "Derby bus station", "transit")
         
-        parsed_directions = g_maps_handler.parse_directions(directions_result)
+        # Parse the steps
+        parsed_rotue= g_maps_handler.parse_route_steps(route) 
         
-        return jsonify({
+        # Prepare the response
+        response_data = {
             'status': 'success',
-            'data': parsed_directions
-        })
+            'data': {
+                
+        
+                'raw_route': parsed_rotue
+             
+            }
+        }
+        
+        return jsonify(response_data)
     
     except Exception as e:
         return jsonify({
             'status': 'error',
             'message': str(e)
         }), 500
+
+
+
+
 
 
 
