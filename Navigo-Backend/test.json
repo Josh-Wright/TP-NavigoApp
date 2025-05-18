@@ -1,0 +1,1489 @@
+[
+    {
+        "_id": "682889612c8c9dbbfa21f649",
+        "line_ref": "TA",
+        "route_name": "the allestree",
+        "file_name": "./TimeTables/trentbarton_k3NtfzG_PENeVwX/BODS_PC0001135_6_20250105_24.xml",
+        "journey_patterns": [
+            {
+                "journey_pattern_ref": "JP1",
+                "direction": "outbound",
+                "route_ref": "RT1",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP2",
+                "direction": "outbound",
+                "route_ref": "RT1",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP3",
+                "direction": "outbound",
+                "route_ref": "RT1",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP4",
+                "direction": "outbound",
+                "route_ref": "RT1",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP5",
+                "direction": "outbound",
+                "route_ref": "RT1",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP6",
+                "direction": "outbound",
+                "route_ref": "RT1",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP7",
+                "direction": "outbound",
+                "route_ref": "RT1",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP8",
+                "direction": "outbound",
+                "route_ref": "RT2",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP9",
+                "direction": "outbound",
+                "route_ref": "RT2",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP10",
+                "direction": "outbound",
+                "route_ref": "RT2",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP11",
+                "direction": "outbound",
+                "route_ref": "RT2",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP12",
+                "direction": "outbound",
+                "route_ref": "RT2",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP13",
+                "direction": "outbound",
+                "route_ref": "RT2",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP14",
+                "direction": "outbound",
+                "route_ref": "RT2",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP15",
+                "direction": "outbound",
+                "route_ref": "RT3",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP16",
+                "direction": "outbound",
+                "route_ref": "RT3",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP17",
+                "direction": "outbound",
+                "route_ref": "RT4",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP18",
+                "direction": "outbound",
+                "route_ref": "RT4",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP19",
+                "direction": "outbound",
+                "route_ref": "RT5",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP20",
+                "direction": "outbound",
+                "route_ref": "RT5",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP21",
+                "direction": "outbound",
+                "route_ref": "RT6",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP22",
+                "direction": "outbound",
+                "route_ref": "RT6",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP23",
+                "direction": "outbound",
+                "route_ref": "RT7",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP24",
+                "direction": "outbound",
+                "route_ref": "RT7",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP25",
+                "direction": "outbound",
+                "route_ref": "RT8",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP26",
+                "direction": "outbound",
+                "route_ref": "RT9",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP27",
+                "direction": "outbound",
+                "route_ref": "RT9",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP28",
+                "direction": "outbound",
+                "route_ref": "RT10",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            },
+            {
+                "journey_pattern_ref": "JP29",
+                "direction": "outbound",
+                "route_ref": "RT10",
+                "stops": [
+                    {
+                        "stop_ref": "109000022166",
+                        "sequence": 1
+                    },
+                    {
+                        "stop_ref": "109000009334",
+                        "sequence": 2
+                    },
+                    {
+                        "stop_ref": "109055202",
+                        "sequence": 3
+                    },
+                    {
+                        "stop_ref": "109000009340",
+                        "sequence": 4
+                    },
+                    {
+                        "stop_ref": "109000009231",
+                        "sequence": 5
+                    },
+                    {
+                        "stop_ref": "109000009232",
+                        "sequence": 6
+                    },
+                    {
+                        "stop_ref": "109000009273",
+                        "sequence": 7
+                    },
+                    {
+                        "stop_ref": "109000009270",
+                        "sequence": 8
+                    },
+                    {
+                        "stop_ref": "109000009268",
+                        "sequence": 9
+                    },
+                    {
+                        "stop_ref": "109000009266",
+                        "sequence": 10
+                    },
+                    {
+                        "stop_ref": "109000009153",
+                        "sequence": 11
+                    }
+                ]
+            }
+        ]
+    }
+]

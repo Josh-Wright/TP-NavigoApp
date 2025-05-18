@@ -33,7 +33,7 @@ class GoogleMapsHandler:
             origin, 
             destination, 
             mode=mode, 
-            departure_time=departure_time
+            departure_time=departure_time 
         )
 
     def validate_address(self, address_lines: list, region_code: str = None, 
@@ -107,6 +107,7 @@ class GoogleMapsHandler:
                             'departure_time': transit_details.get('departure_time', {}).get('text', ''),
                             'arrival_stop': transit_details.get('arrival_stop', {}).get('name', ''),
                             'arrival_time': transit_details.get('arrival_time', {}).get('text', ''),
+                            'line_operator': line.get('agencies', '')[0].get('name', ''),
                             'line_name': line.get('name', ''),
                             'line_short_name': line.get('short_name', ''),
                             'num_stops': transit_details.get('num_stops', 0),
@@ -116,6 +117,37 @@ class GoogleMapsHandler:
                         step_counter += 1
         
         return combined_steps
+    @staticmethod
+    def extract_transit_details(route_data):
+   
+   
+        transit_details = []
+        
+        # Check if route_data exists and has raw_route
+        if  not route_data:
+            return transit_details
+        
+        for step in route_data:
+            if step.get('type') == 'transit':
+                transit_info = {
+                    'step_number': step.get('step_number'),
+                    'operator': step.get('line_operator', 'Unknown'),
+                    'line_name': step.get('line_name', ''),
+                    'line_short_name': step.get('line_short_name', ''),
+                    'instruction': step.get('instruction', ''),
+                    'distance': step.get('distance', ''),
+                    'duration': step.get('duration', ''),
+                    'departure_stop': step.get('departure_stop', ''),
+                    'departure_time': step.get('departure_time', ''),
+                    'arrival_stop': step.get('arrival_stop', ''),
+                    'arrival_time': step.get('arrival_time', ''),
+                    'num_stops': step.get('num_stops', 0),
+                    'start_location': step.get('start_location', {}),
+                    'end_location': step.get('end_location', {})
+                }
+                transit_details.append(transit_info)
+        
+        return transit_details
 
 
 # if __name__ == "__main__":

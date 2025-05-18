@@ -14,9 +14,12 @@ def parse_transxchange(file_path):
 
         # Extract OperatorRef
         operator_ref = root.find('.//txc:Operators/txc:Operator/txc:NationalOperatorCode', ns)
+        operator_name = root.find('.//txc:Operators/txc:Operator/txc:OperatorShortName', ns)
+        print(operator_name)
         if operator_ref is None:
             operator_ref = root.find('.//txc:Operators/txc:Operator/txc:OperatorCode', ns)
         operator_ref = operator_ref.text if operator_ref is not None else None
+        operator_name = operator_name.text if operator_name is not None else None
 
         # Extract LineRef
         line_ref = root.find('.//txc:Services/txc:Service/txc:Line/txc:LineName', ns)
@@ -78,6 +81,7 @@ def parse_transxchange(file_path):
         return {
             "file_name": file_path,
             "operator_ref": operator_ref,
+            "operator_name": operator_name,
             "line_ref": line_ref,
             "route_name": route_name,
             "journey_patterns": journey_patterns

@@ -18,6 +18,7 @@ def process_route_patterns(file_path):
     
     for route_data in data:
         operator_ref = route_data['operator_ref']
+        operator_name = route_data['operator_name']
         line_ref = route_data['line_ref']
         
         # Prepare the document structure
@@ -29,7 +30,7 @@ def process_route_patterns(file_path):
         }
         
  
-        collection = db[operator_ref]
+        collection = db[f'{operator_name} {operator_ref}']
      
         existing_doc = collection.find_one({'line_ref': line_ref})
         
