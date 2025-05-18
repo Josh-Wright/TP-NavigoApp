@@ -121,7 +121,9 @@ def parse_siri_xml(xml_string):
 
 # The XML string you provided
 #Testing
-print(json.dumps(parse_siri_xml(getLocationData('U1','NDTR',params)),indent=4))
-testing = parse_siri_xml(getLocationData('U1','NDTR',params))[0
+print(json.dumps(parse_siri_xml(getLocationData('swi','NDTR',params)),indent=4))
+print(getLocationData('U1','NDTR',params))
+testing = parse_siri_xml(getLocationData('U1','NDTR',params))[1
                                                               ]["MonitoredVehicleJourney"]["VehicleLocation"]
 print(f"{testing['Latitude']},{testing['Longitude']}")
+
