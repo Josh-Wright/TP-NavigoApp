@@ -1,5 +1,5 @@
 import googlemaps
-from datetime import datetime
+from datetime import datetime,timedelta
 from dotenv import load_dotenv
 import os
 import json
@@ -27,13 +27,13 @@ class GoogleMapsHandler:
                       departure_time: datetime = None):
       
         if departure_time is None:
-            departure_time = datetime.now()
+            departure_time = datetime.now() 
             
         return self.client.directions(
             origin, 
             destination, 
             mode=mode, 
-            departure_time=departure_time
+            departure_time=departure_time +timedelta(hours=12)
         )
 
     def validate_address(self, address_lines: list, region_code: str = None, 
@@ -46,88 +46,123 @@ class GoogleMapsHandler:
             enableUspsCass=enable_usps_cass
         )
 
+    
+    
     @staticmethod
-    def parse_directions(directions_data):
-       
-        if not directions_data:
-            return {}
+    def parse_route_steps(route_data):
+      
+        combined_steps = []
         
-        first_leg = directions_data[0]['legs'][0]
-        simplified = {
-            'origin': {
-                'address': first_leg['start_address'],
-                'location': {
-                    'lat': first_leg['start_location']['lat'],
-                    'lng': first_leg['start_location']['lng']
-                }
-            },
-            'destination': {
-                'address': first_leg['end_address'],
-                'location': {
-                    'lat': first_leg['end_location']['lat'],
-                    'lng': first_leg['end_location']['lng']
-                }
-            },
-            'duration': first_leg['duration']['text'],
-            'distance': first_leg['distance']['text'],
-            'steps': []
-        }
+        # Check if route_data exists and has elements
+        if not isinstance(route_data, list) or not route_data:
+            return combined_steps
         
-        for step in first_leg['steps']:
-            simplified_step = {
-                'instruction': step['html_instructions'],
-                'distance': step['distance']['text'],
-                'duration': step['duration']['text'],
-                'travel_mode': step['travel_mode'].lower()
-            }
-            
-            if step['travel_mode'] == 'TRANSIT':
-                transit = step['transit_details']
-                simplified_step['transit'] = {
-                    'line': {
-                        'name': transit['line']['name'],
-                        'short_name': transit['line']['short_name'],
-                        'color': transit['line']['color'],
-                        'vehicle': transit['line']['vehicle']['type'].lower()
-                    },
-                    'departure': {
-                        'stop': transit['departure_stop']['name'],
-                        'time': transit['departure_time']['text'],
-                        'location': {
-                            'lat': transit['departure_stop']['location']['lat'],
-                            'lng': transit['departure_stop']['location']['lng']
-                        }
-                    },
-                    'arrival': {
-                        'stop': transit['arrival_stop']['name'],
-                        'time': transit['arrival_time']['text'],
-                        'location': {
-                            'lat': transit['arrival_stop']['location']['lat'],
-                            'lng': transit['arrival_stop']['location']['lng']
-                        }
-                    },
-                    'num_stops': transit['num_stops'],
-                    'headsign': transit['headsign']
-                }
-            
-            simplified['steps'].append(simplified_step)
+        step_counter = 1
         
-        return simplified
+        for route in route_data:
+            for leg in route.get('legs', []):
+                for step in leg.get('steps', []):
+                    # Handle walking steps (including substeps)
+                    if step.get('travel_mode') == 'WALKING':
+                        if 'steps' in step:  # Parent step with substeps
+                            for substep in step['steps']:
+                                combined_steps.append({
+                                    'step_number': step_counter,
+                                    'type': 'walking',
+                                    'instruction': substep.get('html_instructions', ''),
+                                    'distance': substep['distance']['text'],
+                                    'duration': substep['duration']['text'],
+                                    'start_location': substep['start_location'],
+                                    'end_location': substep['end_location'],
+                                    'maneuver': substep.get('maneuver', ''),
+                                    'polyline': substep.get('polyline', {}).get('points', '')
+                                })
+                                step_counter += 1
+                        else:  # Direct walking step
+                            combined_steps.append({
+                                'step_number': step_counter,
+                                'type': 'walking',
+                                'instruction': step.get('html_instructions', ''),
+                                'distance': step['distance']['text'],
+                                'duration': step['duration']['text'],
+                                'start_location': step['start_location'],
+                                'end_location': step['end_location'],
+                                'maneuver': step.get('maneuver', ''),
+                                'polyline': step.get('polyline', {}).get('points', '')
+                            })
+                            step_counter += 1
+                    
+                    # Handle transit steps
+                    elif step.get('travel_mode') == 'TRANSIT':
+                        transit_details = step.get('transit_details', {})
+                        line = transit_details.get('line', {})
+                        
+                        combined_steps.append({
+                            'step_number': step_counter,
+                            'type': 'transit',
+                            'instruction': step.get('html_instructions', ''),
+                            'distance': step['distance']['text'],
+                            'duration': step['duration']['text'],
+                            'departure_stop': transit_details.get('departure_stop', {}).get('name', ''),
+                            'departure_time': transit_details.get('departure_time', {}).get('text', ''),
+                            'arrival_stop': transit_details.get('arrival_stop', {}).get('name', ''),
+                            'arrival_time': transit_details.get('arrival_time', {}).get('text', ''),
+                            'line_operator': line.get('agencies', '')[0].get('name', ''),
+                            'line_name': line.get('name', ''),
+                            'line_short_name': line.get('short_name', ''),
+                            'num_stops': transit_details.get('num_stops', 0),
+                            'start_location': step['start_location'],
+                            'end_location': step['end_location']
+                        })
+                        step_counter += 1
+        
+        return combined_steps
+    @staticmethod
+    def extract_transit_details(route_data):
+   
+   
+        transit_details = []
+        
+        # Check if route_data exists and has raw_route
+        if  not route_data:
+            return transit_details
+        
+        for step in route_data:
+            if step.get('type') == 'transit':
+                transit_info = {
+                    'step_number': step.get('step_number'),
+                    'operator': step.get('line_operator', 'Unknown'),
+                    'line_name': step.get('line_name', ''),
+                    'line_short_name': step.get('line_short_name', ''),
+                    'instruction': step.get('instruction', ''),
+                    'distance': step.get('distance', ''),
+                    'duration': step.get('duration', ''),
+                    'departure_stop': step.get('departure_stop', ''),
+                    'departure_time': step.get('departure_time', ''),
+                    'arrival_stop': step.get('arrival_stop', ''),
+                    'arrival_time': step.get('arrival_time', ''),
+                    'num_stops': step.get('num_stops', 0),
+                    'start_location': step.get('start_location', {}),
+                    'end_location': step.get('end_location', {})
+                }
+                transit_details.append(transit_info)
+        
+        return transit_details
 
 
 # if __name__ == "__main__":
 #     # Example usage
-#     maps = GoogleMapsWrapper()
+#     maps = GoogleMapsHandler()
     
-#     # Geocoding example
-#     geocode_result = maps.geocode_address('1600 Amphitheatre Parkway, Mountain View, CA')
-#     print("Geocode Result:", geocode_result)
+# #     # Geocoding example
+# #     geocode_result = maps.geocode_address('1600 Amphitheatre Parkway, Mountain View, CA')
+# #     print("Geocode Result:", geocode_result)
     
-#     # Reverse geocoding 
-#     reverse_geocode_result = maps.reverse_geocode(40.714224, -73.961452)
-#     print("Reverse Geocode Result:", reverse_geocode_result)
+# #     # Reverse geocoding 
+# #     reverse_geocode_result = maps.reverse_geocode(40.714224, -73.961452)
+# #     print("Reverse Geocode Result:", reverse_geocode_result)
     
-#     # Directions 
+# #     # Directions 
 #     directions_result = maps.get_directions(
 #         origin="de22 3fy",
 #         destination="Queens Medical Centre, Nottingham",
@@ -135,4 +170,4 @@ class GoogleMapsHandler:
 #     )
     
 #     parsed_directions = maps.parse_directions(directions_result)
-#     print("Parsed Directions:", json.dumps(parsed_directions, indent=4))
+#     print("Parsed Directions:", json.dumps(directions_result, indent=4))

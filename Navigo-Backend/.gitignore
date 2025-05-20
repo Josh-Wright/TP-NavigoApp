@@ -1,2 +1,3 @@
-/NavigoBackendVenv
+/venv
 .env
+/TimeTables

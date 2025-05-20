@@ -1,6 +1,5 @@
 import Header from "./Header";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import Svg, { Path } from "react-native-svg";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faBell,
@@ -13,52 +12,74 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import MapView, { Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
+import Constants from "expo-constants";
 
-const origin = { latitude: 52.929488857183586, longitude: -1.497704357336529 };
-const destination = {
-  latitude: 52.91902299061751,
-  longitude: -1.472203979339939,
-};
-const REDACTED = "REDACTED";
-const waypoint1 = {
-  latitude: 52.923025311374005,
-  longitude: -1.4813591528924195,
-};
-const waypoint2 = {
-  latitude: 52.92430774323713,
-  longitude: -1.4809774950254628,
-};
+const GOOGLE_MAPS_APIKEY = Constants.expoConfig.extra.GOOGLE_MAPS_APIKEY;
 
-export default function BusRoutePage() {
+export default function BusRoutePage({ step, transitDetails, transitStops, origin, destination, onNextStep }) {
+  const transitDetail = transitDetails.find((detail) => detail.stepNumber === step.step_number) || {};
+  const outboundStops = transitStops?.outbound?.U2 || [];
+
+  // Create waypoints from outbound stops
+  const waypoints = outboundStops.map((stop) => ({
+    latitude: parseFloat(stop.Latitude),
+    longitude: parseFloat(stop.Longitude),
+  }));
+
+  // Create array of stop names
+  const stopNames = outboundStops.map((stop) => stop.CommonName);
+
   return (
     <View style={styles.container}>
-      <Header />
-      <RouteSummary />
-
+    
+      <RouteSummary
+        departureStop={transitDetail.departureStop}
+        arrivalStop={transitDetail.arrivalStop}
+        lineName={transitDetail.lineName}
+      />
       <Body>
-        {/* <ProximityNotification /> */}
-        <NextStop/>
-        <Destination />
+        <NextStop
+          nextStop={stopNames[1] || "Next Stop"} // Example: Use second stop as next
+          duration={step.duration}
+        />
+        <Destination
+          arrivalStop={transitDetail.arrivalStop}
+          duration={transitDetail.duration}
+        />
         <View style={styles.mapContainer}>
           <MapView
             style={styles.mapView}
             initialRegion={{
-              latitude: (origin.latitude + destination.latitude) / 2,
-              longitude: (origin.longitude + destination.longitude) / 2,
-              latitudeDelta: 0.015, //zoom
+              latitude: (step.start_location.lat + step.end_location.lat) / 2,
+              longitude: (step.start_location.lng + step.end_location.lng) / 2,
+              latitudeDelta: 0.015,
               longitudeDelta: 0.015,
             }}
           >
-            <Marker coordinate={origin} title="Origin" />
-            <Marker coordinate={destination} title="Destination" />
-            <MapViewDirections
-              origin={origin}
-              destination={destination}
-              apikey={REDACTED}
-              strokeWidth={3}
-              strokeColor="black"
-              waypoints={[waypoint1, waypoint2]}
+            <Marker
+              coordinate={{ latitude: step.start_location.lat, longitude: step.start_location.lng }}
+              title="Start"
             />
+            <Marker
+              coordinate={{ latitude: step.end_location.lat, longitude: step.end_location.lng }}
+              title="End"
+            />
+            <MapViewDirections
+              origin={{ latitude: step.start_location.lat, longitude: step.start_location.lng }}
+              destination={{ latitude: step.end_location.lat, longitude: step.end_location.lng }}
+              waypoints={waypoints}
+              apikey={GOOGLE_MAPS_APIKEY}
+              strokeWidth={3}
+              strokeColor="blue"
+            />
+            {waypoints.map((point, index) => (
+              <Marker
+                key={`stop-${index}`}
+                coordinate={point}
+                title={stopNames[index]}
+                pinColor="blue"
+              />
+            ))}
           </MapView>
         </View>
         <Support />
@@ -67,19 +88,18 @@ export default function BusRoutePage() {
   );
 }
 
-function NextStop() {
+function NextStop({ nextStop, duration }) {
   return (
     <View style={nextStopStyles.container}>
-      <Text style={nextStopStyles.title}>Next stop: Keddleston road</Text>
+      <Text style={nextStopStyles.title}>Next Stop: {nextStop}</Text>
       <View style={nextStopStyles.infoRow}>
         <FontAwesomeIcon icon={faInfoCircle} color="#0e766f" />
-        <Text style={nextStopStyles.text}>Arriving in 2 minutes</Text>
+        <Text style={nextStopStyles.text}>Arriving in {duration}</Text>
       </View>
       <View style={nextStopStyles.infoRow}>
         <FontAwesomeIcon icon={faClock} color="#0e766f" />
         <Text style={nextStopStyles.text}>This is not your stop</Text>
       </View>
-    
     </View>
   );
 }
@@ -92,10 +112,8 @@ function ProximityNotification() {
           <FontAwesomeIcon icon={faBell} size={12} color="#ffffff" />
         </View>
         <View style={notificationStyles.textContainer}>
-          <Text style={notificationStyles.title}>Getting Close !</Text>
-          <Text style={notificationStyles.text}>
-            Your stop, UOD stret, is 2 stops away
-          </Text>
+          <Text style={notificationStyles.title}>Getting Close!</Text>
+          <Text style={notificationStyles.text}>Your stop is 2 stops away</Text>
           <Text style={notificationStyles.text}>Approximately 4 minutes</Text>
         </View>
       </View>
@@ -103,25 +121,21 @@ function ProximityNotification() {
   );
 }
 
-function Destination() {
+function Destination({ arrivalStop, duration }) {
   return (
     <View style={nextStopStyles.container}>
-      <Text style={nextStopStyles.title}>Your Destination: MS125</Text>
+      <Text style={nextStopStyles.title}>Your Destination: {arrivalStop}</Text>
       <View style={nextStopStyles.infoRow}>
         <FontAwesomeIcon icon={faInfoCircle} color="#0e766f" />
-        <Text style={nextStopStyles.text}>
-          Arriving in approximately 4 minutes
-        </Text>
+        <Text style={nextStopStyles.text}>Arriving in {duration}</Text>
       </View>
       <View style={nextStopStyles.infoRow}>
         <FontAwesomeIcon icon={faClock} color="#0e766f" />
-        <Text style={nextStopStyles.text}>
-          You will receive alerts as you get closer
-        </Text>
+        <Text style={nextStopStyles.text}>You will receive alerts as you get closer</Text>
       </View>
       <TouchableOpacity style={nextStopStyles.button}>
         <FontAwesomeIcon icon={faHandPointer} color="#ffffff" />
-        <Text style={nextStopStyles.buttonText}>Get me off this busss!!</Text>
+        <Text style={nextStopStyles.buttonText}>Get me off this bus!</Text>
       </TouchableOpacity>
     </View>
   );
@@ -146,16 +160,18 @@ function Body({ children }) {
   return <View style={styles.body}>{children}</View>;
 }
 
-function RouteSummary() {
-  const progress = 50; 
-  
+function RouteSummary({ departureStop, arrivalStop, lineName }) {
+  const progress = 50; // Placeholder: Calculate based on actual progress
+
   return (
     <View style={routeSummaryStyles.container}>
       <View style={styles.currentJourneyContainer}>
         <FontAwesomeIcon icon={faMapMarkerAlt} color="#ffffff" />
         <View style={styles.journeyTextContainer}>
           <Text style={routeSummaryStyles.text}>Current Journey</Text>
-          <Text style={styles.journeySubText}>Bus x to Location y </Text>
+          <Text style={styles.journeySubText}>
+            Bus {lineName} from {departureStop} to {arrivalStop}
+          </Text>
         </View>
       </View>
       <View style={styles.locationInfoContainer}>
@@ -163,7 +179,6 @@ function RouteSummary() {
           <Text style={styles.locationText}>Current Location</Text>
           <Text style={styles.locationText}>Next Location</Text>
         </View>
-        {/* Changed: Replaced simple progress bar with new segmented version */}
         <View style={styles.progressBarContainer}>
           <View style={[styles.completedProgress, { width: `${progress}%` }]} />
           <View style={[styles.remainingProgress, { width: `${100 - progress}%` }]} />
@@ -200,7 +215,6 @@ const styles = StyleSheet.create({
   journeyTextContainer: {
     marginLeft: 10,
   },
-  // Changed: Removed old journeyProgressBar style
   journeySubText: {
     color: "#ffffff",
   },
@@ -217,41 +231,38 @@ const styles = StyleSheet.create({
   locationText: {
     color: "#fff",
   },
-  mapContainer: { 
-    flex: 1 
+  mapContainer: {
+    flex: 1,
   },
   mapView: {
     flex: 1,
     width: "100%",
   },
-
   progressBarContainer: {
     height: 12,
     width: "100%",
     borderRadius: 15,
     marginVertical: 10,
-    flexDirection: 'row',
-  
-  
+    flexDirection: "row",
   },
   completedProgress: {
-    height: '100%',
+    height: "100%",
     backgroundColor: "#FFFFFF",
     borderTopLeftRadius: 15,
     borderBottomLeftRadius: 15,
   },
   remainingProgress: {
-    height: '100%',
+    height: "100%",
     backgroundColor: "#115f58",
     borderTopRightRadius: 15,
     borderBottomRightRadius: 15,
   },
   busIconContainer: {
-    position: 'absolute',
+    position: "absolute",
     top: -8,
     width: 30,
     height: 30,
-    marginLeft: -15, // Center the icon on the progress point
+    marginLeft: -15,
   },
   busIcon: {
     backgroundColor: "#FFFFFF",
@@ -315,7 +326,6 @@ const notificationStyles = StyleSheet.create({
 
 const nextStopStyles = StyleSheet.create({
   container: {
-    flexDirection: 1,
     marginTop: 10,
     borderWidth: 1,
     borderRadius: 10,
