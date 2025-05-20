@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, g
 from GoogleMapsApiHandler import GoogleMapsHandler
+from flask_cors import CORS
 import json
 from MongoHandler import get_mongo_collections_by_word, flatten_mongo_results
 from pymongo import MongoClient
@@ -144,8 +145,10 @@ def extract_Journey_patterns(jp):
 @app.route('/api/getRouteInfo', methods=['GET'])
 def get_route_info():
     try:
+        origin = request.args.get("origin")
+        destination = request.args.get("destination")
         g_maps_handler = GoogleMapsHandler()
-        route = get_maps_route(g_maps_handler, "De22 3aw", "Queens Medical Center Nottingham", "transit")
+        route = get_maps_route(g_maps_handler, origin, destination, "transit")
         parsed_route = g_maps_handler.parse_route_steps(route)
         transit_details = g_maps_handler.extract_transit_details(parsed_route)
 
@@ -211,5 +214,9 @@ def get_route_info():
             'message': str(e)
         }), 500
 
+@app.route('/')
+def home():
+    return "Flask server is running. Use /api/getRouteInfo endpoint for directions."
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)  # This makes it accessible on all network interfaces

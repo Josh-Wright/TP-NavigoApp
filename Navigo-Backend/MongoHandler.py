@@ -36,7 +36,7 @@ def get_mongo_collections_by_word(db_name, word_in_collection_name):
         # Iterate over collection names and find matches
         for coll_name in collection_names:
             # Use a case-insensitive search for the word
-            if re.search(word_in_collection_name, coll_name, re.IGNORECASE):
+            if word_in_collection_name in coll_name:
                 found_match = True
                 print(f"\nFound matching collection: '{coll_name}'")
                 collection = db[coll_name]
