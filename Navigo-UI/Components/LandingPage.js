@@ -10,8 +10,10 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Svg, { Path } from "react-native-svg";
-import axios from "axios"; 
+import axios from "axios";
 import Header from "./Header";
+import { useNavigation } from "@react-navigation/native";
+import JourneyOrchestrator from "./JourneyOrchestrator";
 
 function InputField({ label, placeholder, value, onChangeText }) {
   return (
@@ -77,6 +79,8 @@ export default function LandingPage() {
   const [destination, setDestination] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigation = useNavigation();
+
   const fetchRouteInfo = async () => {
     if (!origin || !destination) {
       Alert.alert("Error", "Please enter both origin and destination");
@@ -101,15 +105,39 @@ export default function LandingPage() {
 
       if (data.status === "success") {
         const routeInfo = data.data;
-        Alert.alert(
-          "Route Information",
-          `From: ${routeInfo.origin.address}\n` +
-            `To: ${routeInfo.destination.address}\n` +
-            `Duration: ${routeInfo.duration}\n` +
-            `Distance: ${routeInfo.distance}\n` +
-            `Steps: ${routeInfo.steps.length} steps in your journey`,
-          [{ text: "OK" }]
+
+        const walkingSteps = routeInfo.parsed_route.filter(
+          (step) => step.type === "walking"
         );
+
+        const transitDetails =
+          routeInfo.transit_details?.map((detail) => ({
+            lineName: detail.line_name,
+            operator: detail.operator,
+            shortName: detail.line_short_name,
+            departureStop: detail.departure_stop,
+            departureTime: detail.departure_time,
+            arrivalStop: detail.arrival_stop,
+            arrivalTime: detail.arrival_time,
+            duration: detail.duration,
+            distance: detail.distance,
+            numStops: detail.num_stops,
+            stepNumber: detail.step_number,
+          })) || [];
+
+        const transitStops = {
+          inbound: routeInfo.inbound_bus_stops,
+          outbound: routeInfo.outbound_bus_stops,
+        };
+
+        // Navigate to JourneyOrchestrator with the parsed data
+        navigation.navigate("JourneyOrchestrator", {
+          parsed_route: routeInfo.parsed_route,
+          transitDetails,
+          transitStops,
+          origin,
+          destination,
+        });
       } else {
         Alert.alert("Error", data.message || "Failed to get route information");
       }
@@ -135,16 +163,10 @@ export default function LandingPage() {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <Header/>
-      
-
-      {/* Title */}
+      <Header />
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>Plan your journey</Text>
       </View>
-
-      {/* Main Content */}
       <View style={styles.content}>
         <InputField
           label="From:"
@@ -158,12 +180,9 @@ export default function LandingPage() {
           value={destination}
           onChangeText={setDestination}
         />
-
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>When do you want to travel?</Text>
         </View>
-
-        {/* Buttons */}
         <View style={styles.buttonContainer}>
           <ActionButton
             label={isLoading ? "Loading..." : "Depart Now"}
@@ -201,7 +220,6 @@ export default function LandingPage() {
             </Svg>
           </ActionButton>
         </View>
-
         <View style={styles.instructionContainer}>
           <TouchableOpacity onPress={() => alert("Listening...")}>
             <View style={styles.microphoneIcon}>
@@ -211,12 +229,9 @@ export default function LandingPage() {
           <Text>Listening... Say your journey</Text>
         </View>
       </View>
-
-      {/* Save Locations */}
       <View style={styles.sectionHeader}>
         <Text style={styles.titleText}>Saved Locations</Text>
       </View>
-
       <View style={styles.savedLocationsContainer}>
         <LocationBox
           label="Home"
@@ -247,7 +262,6 @@ export default function LandingPage() {
           onPress={() => handleLocationSelect("University")}
         />
       </View>
-
       <View style={styles.voiceHint}>
         <Text style={styles.voiceHintText}>
           double tap anywhere to activate voice control..
@@ -262,7 +276,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "",
     alignItems: "center",
-
   },
   header: {
     flexDirection: "row",
@@ -294,7 +307,6 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     marginTop: 5,
-  
   },
   inputContainer: {
     borderWidth: 1,
@@ -302,8 +314,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 10,
     paddingHorizontal: 10,
-  
-    
   },
   inputRow: {
     flexDirection: "row",
@@ -315,11 +325,9 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 5,
     marginBottom: 20,
-
     borderRadius: 5,
     borderWidth: 1,
     borderColor: "#ccc",
-    
   },
   microphoneButton: {
     marginLeft: 10,
@@ -336,11 +344,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginRight: 16,
-  },
-
-  microphoneText: {
-    color: "#fff",
-    fontWeight: "bold",
   },
   buttonContainer: {
     flexDirection: "row",
@@ -390,7 +393,6 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 10,
   },
-
   locationBox: {
     flexDirection: "row",
     width: "48%",
@@ -398,12 +400,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#0e766f",
     alignItems: "center",
-
     borderRadius: 10,
     paddingHorizontal: 10,
     marginBottom: 10,
   },
-
   locationText: {
     color: "#0e766f",
     fontWeight: "bold",
@@ -415,7 +415,7 @@ const styles = StyleSheet.create({
     width: 30,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 15, 
+    borderRadius: 15,
   },
   voiceHintText: { fontSize: 16, color: "grey" },
   helpButton: {

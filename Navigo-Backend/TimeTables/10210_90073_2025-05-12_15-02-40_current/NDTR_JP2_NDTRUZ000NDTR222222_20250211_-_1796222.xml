@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TransXChange xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" SchemaVersion="2.4" CreationDateTime="2022-06-01T10:30:37" ModificationDateTime="2025-02-10T17:05:09" Modification="revise" RevisionNumber="3" FileName="NDTR_JP2_NDTRUZ000NDTR222222_20250211_-_1796222.xml" xmlns="http://www.transxchange.org.uk/">
+  <ServicedOrganisations>
+    <ServicedOrganisation>
+      <OrganisationCode>STBS</OrganisationCode>
+      <Name>StBenedicts2425</Name>
+      <WorkingDays>
+        <DateRange>
+          <StartDate>2023-09-06</StartDate>
+          <EndDate>2023-10-27</EndDate>
+        </DateRange>
+        <DateRange>
+          <StartDate>2023-11-06</StartDate>
+          <EndDate>2023-12-21</EndDate>
+        </DateRange>
+        <DateRange>
+          <StartDate>2024-01-08</StartDate>
+          <EndDate>2024-02-16</EndDate>
+        </DateRange>
+        <DateRange>
+          <StartDate>2024-02-27</StartDate>
+          <EndDate>2024-03-28</EndDate>
+        </DateRange>
+        <DateRange>
+          <StartDate>2024-04-15</StartDate>
+          <EndDate>2024-05-03</EndDate>
+        </DateRange>
+        <DateRange>
+          <StartDate>2024-05-07</StartDate>
+          <EndDate>2024-05-24</EndDate>
+        </DateRange>
+        <DateRange>
+          <StartDate>2024-06-03</StartDate>
+          <EndDate>2024-06-27</EndDate>
+        </DateRange>
+        <DateRange>
+          <StartDate>2024-07-01</StartDate>
+          <EndDate>2024-07-23</EndDate>
+        </DateRange>
+        <DateRange>
+          <StartDate>2024-09-06</StartDate>
+          <EndDate>2024-10-25</EndDate>
+        </DateRange>
+        <DateRange>
+          <StartDate>2024-11-04</StartDate>
+          <EndDate>2024-11-28</EndDate>
+        </DateRange>
+        <DateRange>
+          <StartDate>2024-12-02</StartDate>
+          <EndDate>2024-12-20</EndDate>
+        </DateRange>
+        <DateRange>
+          <StartDate>2025-01-06</StartDate>
+          <EndDate>2025-02-14</EndDate>
+        </DateRange>
+        <DateRange>
+          <StartDate>2025-03-03</StartDate>
+          <EndDate>2025-04-04</EndDate>
+        </DateRange>
+        <DateRange>
+          <StartDate>2025-04-22</StartDate>
+          <EndDate>2025-05-02</EndDate>
+        </DateRange>
+        <DateRange>
+          <StartDate>2025-05-06</StartDate>
+          <EndDate>2025-05-23</EndDate>
+        </DateRange>
+        <DateRange>
+          <StartDate>2025-06-02</StartDate>
+          <EndDate>2025-07-24</EndDate>
+        </DateRange>
+      </WorkingDays>
+    </ServicedOrganisation>
+  </ServicedOrganisations>
+  <StopPoints>
+    <AnnotatedStopPointRef>
+      <StopPointRef>100000018919</StopPointRef>
+      <CommonName>Foss Road</CommonName>
+      <Location>
+        <Longitude>-1.627137</Longitude>
+        <Latitude>52.869630</Latitude>
+      </Location>
+    </AnnotatedStopPointRef>
+    <AnnotatedStopPointRef>
+      <StopPointRef>1000des01473</StopPointRef>
+      <CommonName>John Port School</CommonName>
+      <Location>
+        <Longitude>-1.602411</Longitude>
+        <Latitude>52.883600</Latitude>
+      </Location>
+    </AnnotatedStopPointRef>
+    <AnnotatedStopPointRef>
+      <StopPointRef>100000018920</StopPointRef>
+      <CommonName>Foss Road</CommonName>
+      <Location>
+        <Longitude>-1.627121</Longitude>
+        <Latitude>52.869917</Latitude>
+      </Location>
+    </AnnotatedStopPointRef>
+  </StopPoints>
+  <RouteSections>
+    <RouteSection id="rsf_0000">
+      <RouteLink id="rl_0000_1">
+        <From>
+          <StopPointRef>1000des01473</StopPointRef>
+        </From>
+        <To>
+          <StopPointRef>100000018920</StopPointRef>
+        </To>
+      </RouteLink>
+    </RouteSection>
+    <RouteSection id="rsf_0001">
+      <RouteLink id="rl_0001_1">
+        <From>
+          <StopPointRef>100000018919</StopPointRef>
+        </From>
+        <To>
+          <StopPointRef>1000des01473</StopPointRef>
+        </To>
+      </RouteLink>
+    </RouteSection>
+  </RouteSections>
+  <Routes>
+    <Route id="rt_0000">
+      <Description>No route description available</Description>
+      <RouteSectionRef>rsf_0000</RouteSectionRef>
+    </Route>
+    <Route id="rt_0001">
+      <Description>No route description available</Description>
+      <RouteSectionRef>rsf_0001</RouteSectionRef>
+    </Route>
+  </Routes>
+  <JourneyPatternSections>
+    <JourneyPatternSection id="js_1">
+      <JourneyPatternTimingLink id="jptl_1">
+        <From SequenceNumber="1">
+          <Activity>pickUp</Activity>
+          <StopPointRef>1000des01473</StopPointRef>
+          <TimingStatus>principalTimingPoint</TimingStatus>
+        </From>
+        <To SequenceNumber="2">
+          <Activity>setDown</Activity>
+          <StopPointRef>100000018920</StopPointRef>
+          <TimingStatus>principalTimingPoint</TimingStatus>
+        </To>
+        <RouteLinkRef>rl_0000_1</RouteLinkRef>
+        <RunTime>PT10M</RunTime>
+      </JourneyPatternTimingLink>
+    </JourneyPatternSection>
+    <JourneyPatternSection id="js_2">
+      <JourneyPatternTimingLink id="jptl_2">
+        <From SequenceNumber="1">
+          <Activity>pickUp</Activity>
+          <StopPointRef>100000018919</StopPointRef>
+          <TimingStatus>principalTimingPoint</TimingStatus>
+        </From>
+        <To SequenceNumber="2">
+          <Activity>setDown</Activity>
+          <StopPointRef>1000des01473</StopPointRef>
+          <TimingStatus>principalTimingPoint</TimingStatus>
+        </To>
+        <RouteLinkRef>rl_0001_1</RouteLinkRef>
+        <RunTime>PT10M</RunTime>
+      </JourneyPatternTimingLink>
+    </JourneyPatternSection>
+  </JourneyPatternSections>
+  <Operators>
+    <Operator id="tkt_oid">
+      <NationalOperatorCode>NDTR</NationalOperatorCode>
+      <OperatorCode>NDTR</OperatorCode>
+      <OperatorShortName>Notts and Derby</OperatorShortName>
+      <LicenceNumber>UZ000NDTR</LicenceNumber>
+    </Operator>
+  </Operators>
+  <Services>
+    <Service>
+      <ServiceCode>UZ000NDTR:222</ServiceCode>
+      <Lines>
+        <Line id="NDTR:UZ000NDTR:222:222">
+          <LineName>222</LineName>
+          <OutboundDescription>
+            <Description>Hilton to John Port School</Description>
+          </OutboundDescription>
+          <InboundDescription>
+            <Description>John Port School to Hilton</Description>
+          </InboundDescription>
+        </Line>
+      </Lines>
+      <OperatingPeriod>
+        <StartDate>2025-02-11</StartDate>
+      </OperatingPeriod>
+      <OperatingProfile>
+        <RegularDayType>
+          <DaysOfWeek>
+            <Monday />
+            <Tuesday />
+            <Wednesday />
+            <Thursday />
+            <Friday />
+          </DaysOfWeek>
+        </RegularDayType>
+        <ServicedOrganisationDayType>
+          <DaysOfOperation>
+            <WorkingDays>
+              <ServicedOrganisationRef>STBS</ServicedOrganisationRef>
+            </WorkingDays>
+          </DaysOfOperation>
+        </ServicedOrganisationDayType>
+      </OperatingProfile>
+      <RegisteredOperatorRef>tkt_oid</RegisteredOperatorRef>
+      <PublicUse>false</PublicUse>
+      <StandardService>
+        <Origin>Hilton</Origin>
+        <Destination>John Port School</Destination>
+        <JourneyPattern id="jp_1">
+          <DestinationDisplay>Foss Road</DestinationDisplay>
+          <OperatorRef>tkt_oid</OperatorRef>
+          <Direction>inbound</Direction>
+          <RouteRef>rt_0000</RouteRef>
+          <JourneyPatternSectionRefs>js_1</JourneyPatternSectionRefs>
+        </JourneyPattern>
+        <JourneyPattern id="jp_2">
+          <DestinationDisplay>John Port School</DestinationDisplay>
+          <OperatorRef>tkt_oid</OperatorRef>
+          <Direction>outbound</Direction>
+          <RouteRef>rt_0001</RouteRef>
+          <JourneyPatternSectionRefs>js_2</JourneyPatternSectionRefs>
+        </JourneyPattern>
+      </StandardService>
+    </Service>
+  </Services>
+  <VehicleJourneys>
+    <VehicleJourney>
+      <OperatorRef>tkt_oid</OperatorRef>
+      <Operational>
+        <TicketMachine>
+          <JourneyCode>1510</JourneyCode>
+        </TicketMachine>
+      </Operational>
+      <VehicleJourneyCode>vj_1</VehicleJourneyCode>
+      <ServiceRef>UZ000NDTR:222</ServiceRef>
+      <LineRef>NDTR:UZ000NDTR:222:222</LineRef>
+      <JourneyPatternRef>jp_1</JourneyPatternRef>
+      <DepartureTime>15:10:00</DepartureTime>
+    </VehicleJourney>
+    <VehicleJourney>
+      <OperatorRef>tkt_oid</OperatorRef>
+      <Operational>
+        <TicketMachine>
+          <JourneyCode>0820</JourneyCode>
+        </TicketMachine>
+      </Operational>
+      <VehicleJourneyCode>vj_2</VehicleJourneyCode>
+      <ServiceRef>UZ000NDTR:222</ServiceRef>
+      <LineRef>NDTR:UZ000NDTR:222:222</LineRef>
+      <JourneyPatternRef>jp_2</JourneyPatternRef>
+      <DepartureTime>08:20:00</DepartureTime>
+    </VehicleJourney>
+  </VehicleJourneys>
+</TransXChange>
