@@ -33,7 +33,7 @@ class GoogleMapsHandler:
             origin, 
             destination, 
             mode=mode, 
-            departure_time=departure_time +timedelta(hours=12)
+            departure_time=departure_time 
         )
 
     def validate_address(self, address_lines: list, region_code: str = None, 

@@ -5,7 +5,8 @@ import BusRoutePage from "./BusRoutePage";
 import Header from "./Header";
 
 export default function JourneyOrchestrator({ route }) {
-  const { parsed_route, transitDetails, transitStops, origin, destination } = route.params || {};
+  const { parsed_route, transitDetails, transitStops, origin, destination } =
+    route.params || {};
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   if (!parsed_route || parsed_route.length === 0) {
@@ -31,27 +32,41 @@ export default function JourneyOrchestrator({ route }) {
     <View style={styles.container}>
       <Header />
       <View style={styles.stepContainer}>
-        <Text style={styles.stepText}>Step {currentStep.step_number} of {parsed_route.length}</Text>
         {currentStep.type === "walking" ? (
           <WalkingRoutePage
+            currentStep={currentStep}
+            parsed_route={parsed_route}
             step={currentStep}
             origin={origin}
             destination={destination}
             onNextStep={handleNextStep}
-          />
+          >
+            <TouchableOpacity
+              style={styles.nextButton}
+              onPress={handleNextStep}
+            >
+              <Text style={styles.nextButtonText}>Next Step</Text>
+            </TouchableOpacity>
+          </WalkingRoutePage>
         ) : (
           <BusRoutePage
+            currentStep={currentStep}
+            parsed_route={parsed_route}
             step={currentStep}
             transitDetails={transitDetails}
             transitStops={transitStops}
             origin={origin}
             destination={destination}
             onNextStep={handleNextStep}
-          />
+          >
+            <TouchableOpacity
+              style={styles.nextButton}
+              onPress={handleNextStep}
+            >
+              <Text style={styles.nextButtonText}>Next Step</Text>
+            </TouchableOpacity>
+          </BusRoutePage>
         )}
-        <TouchableOpacity style={styles.nextButton} onPress={handleNextStep}>
-          <Text style={styles.nextButtonText}>Next Step</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -64,7 +79,6 @@ const styles = StyleSheet.create({
   },
   stepContainer: {
     flex: 1,
-   
   },
   stepText: {
     fontSize: 16,

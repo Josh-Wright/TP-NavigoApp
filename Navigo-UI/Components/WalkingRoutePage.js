@@ -12,10 +12,20 @@ import {
 import MapView, { Marker, Polyline } from "react-native-maps";
 import Constants from "expo-constants";
 import polyline from "@mapbox/polyline";
+import * as Speech from "expo-speech";
+import { useEffect } from "react";
 
 const GOOGLE_MAPS_APIKEY = Constants.expoConfig.extra.GOOGLE_MAPS_APIKEY;
 
-export default function WalkingRoutePage({ step, origin, destination, onNextStep }) {
+export default function WalkingRoutePage({
+  step,
+  origin,
+  destination,
+  onNextStep,
+  currentStep,
+  parsed_route,
+  children,
+}) {
   // Decode polyline to coordinates for Polyline component
   const decodedPoints = polyline.decode(step.polyline);
   const coordinates = decodedPoints.map((point) => ({
@@ -23,12 +33,25 @@ export default function WalkingRoutePage({ step, origin, destination, onNextStep
     longitude: point[1],
   }));
 
+  useEffect(() => {
+    // Announce the walking instruction and destination when the page loads
+    const cleanInstruction = step.instruction.replace(/<[^>]+>/g, "");
+    Speech.speak(
+      `Instruction: ${cleanInstruction}. Your destination is ${destination} in ${step.duration}.`,
+      { language: "en-GB" }
+    );
+  }, [step, destination]);
+
   return (
     <View style={styles.container}>
     
-      <RouteSummary instruction={step.instruction} />
+      <RouteSummary
+        instruction={step.instruction}
+        currentStep={currentStep}
+        parsed_route={parsed_route}
+      />
       <Body>
-        <NextStop instruction={step.instruction} duration={step.duration} />
+        {/* <NextStop instruction={step.instruction} duration={step.duration} /> */}
         <Destination destination={destination} duration={step.duration} />
         <View style={styles.mapContainer}>
           <MapView
@@ -41,11 +64,17 @@ export default function WalkingRoutePage({ step, origin, destination, onNextStep
             }}
           >
             <Marker
-              coordinate={{ latitude: step.start_location.lat, longitude: step.start_location.lng }}
+              coordinate={{
+                latitude: step.start_location.lat,
+                longitude: step.start_location.lng,
+              }}
               title="Start"
             />
             <Marker
-              coordinate={{ latitude: step.end_location.lat, longitude: step.end_location.lng }}
+              coordinate={{
+                latitude: step.end_location.lat,
+                longitude: step.end_location.lng,
+              }}
               title="End"
             />
             <Polyline
@@ -55,7 +84,20 @@ export default function WalkingRoutePage({ step, origin, destination, onNextStep
             />
           </MapView>
         </View>
+        {children}
         <Support />
+        <TouchableOpacity
+          style={styles.repeatButton}
+          onPress={() => {
+            const cleanInstruction = step.instruction.replace(/<[^>]+>/g, "");
+            Speech.speak(
+              `Instruction: ${cleanInstruction}. Your destination is ${destination} in ${step.duration}.`,
+              { language: "en-GB" }
+            );
+          }}
+        >
+          <Text style={styles.repeatButtonText}>Repeat Instructions</Text>
+        </TouchableOpacity>
       </Body>
     </View>
   );
@@ -64,7 +106,9 @@ export default function WalkingRoutePage({ step, origin, destination, onNextStep
 function NextStop({ instruction, duration }) {
   return (
     <View style={nextStopStyles.container}>
-      <Text style={nextStopStyles.title}>Instruction: {instruction.replace(/<[^>]+>/g, '')}</Text>
+      <Text style={nextStopStyles.title}>
+        Instruction: {instruction.replace(/<[^>]+>/g, "")}
+      </Text>
       <View style={nextStopStyles.infoRow}>
         <FontAwesomeIcon icon={faInfoCircle} color="#0e766f" />
         <Text style={nextStopStyles.text}>Complete in {duration}</Text>
@@ -97,14 +141,16 @@ function ProximityNotification() {
 function Destination({ destination, duration }) {
   return (
     <View style={nextStopStyles.container}>
-      <Text style={nextStopStyles.title}>Next Instruction: {destination}</Text>
+      <Text style={nextStopStyles.title}>Your Destination: {destination}</Text>
       <View style={nextStopStyles.infoRow}>
         <FontAwesomeIcon icon={faInfoCircle} color="#0e766f" />
         <Text style={nextStopStyles.text}>Arriving in {duration}</Text>
       </View>
       <View style={nextStopStyles.infoRow}>
         <FontAwesomeIcon icon={faClock} color="#0e766f" />
-        <Text style={nextStopStyles.text}>You will receive alerts as you get closer</Text>
+        <Text style={nextStopStyles.text}>
+          You will receive alerts as you get closer
+        </Text>
       </View>
     </View>
   );
@@ -129,16 +175,21 @@ function Body({ children }) {
   return <View style={styles.body}>{children}</View>;
 }
 
-function RouteSummary({ instruction }) {
-  const progress = 50; // Placeholder: Calculate based on actual progress
+function RouteSummary({ instruction, currentStep, parsed_route }) {
+  const progress = ((currentStep.step_number / parsed_route.length) * 100); // Calculate progress based on step number
 
   return (
     <View style={routeSummaryStyles.container}>
       <View style={styles.currentJourneyContainer}>
         <FontAwesomeIcon icon={faMapMarkerAlt} color="#ffffff" />
         <View style={styles.journeyTextContainer}>
+          <Text style={styles.stepText}>
+            Step {currentStep.step_number} of {parsed_route.length}
+          </Text>
           <Text style={routeSummaryStyles.text}>Current Steps</Text>
-          <Text style={styles.journeySubText}>{instruction.replace(/<[^>]+>/g, '')}</Text>
+          <Text style={styles.journeySubText}>
+            {instruction.replace(/<[^>]+>/g, "")}
+          </Text>
         </View>
       </View>
       <View style={styles.locationInfoContainer}>
@@ -148,7 +199,9 @@ function RouteSummary({ instruction }) {
         </View>
         <View style={styles.progressBarContainer}>
           <View style={[styles.completedProgress, { width: `${progress}%` }]} />
-          <View style={[styles.remainingProgress, { width: `${100 - progress}%` }]} />
+          <View
+            style={[styles.remainingProgress, { width: `${100 - progress}%` }]}
+          />
           <View style={[styles.busIconContainer, { left: `${progress}%` }]}>
             <View style={styles.busIcon}>
               <FontAwesomeIcon icon={faPersonWalking} color="#0e766f" size={12} />
@@ -156,11 +209,11 @@ function RouteSummary({ instruction }) {
           </View>
         </View>
         <View style={styles.locationHeader}>
-          <Text style={styles.locationText}>Steps completed</Text>
-          <Text style={styles.locationText}>Steps remaining</Text>
+          <Text style={styles.locationText}>{currentStep.step_number - 1} steps completed</Text>
+          <Text style={styles.locationText}>{parsed_route.length - currentStep.step_number} steps remaining</Text>
         </View>
       </View>
-    </View>
+      </View>
   );
 }
 
@@ -240,6 +293,25 @@ const styles = StyleSheet.create({
     borderColor: "#0e766f",
     justifyContent: "center",
     alignItems: "center",
+  },
+  stepText: {
+    color: "#ffffff",
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 10,
+    textAlign: "center",
+  },
+  repeatButton: {
+    backgroundColor: "#0e766f",
+    padding: 10,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  repeatButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

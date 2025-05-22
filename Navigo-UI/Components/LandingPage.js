@@ -91,7 +91,7 @@ export default function LandingPage() {
 
     try {
       const response = await axios.get(
-        "http://10.135.26.3:5000/api/getRouteInfo",
+        "http://172.27.43.135:5000/api/getRouteInfo",
         {
           params: {
             origin: origin,

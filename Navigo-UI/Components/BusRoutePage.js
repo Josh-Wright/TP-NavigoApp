@@ -13,11 +13,25 @@ import {
 import MapView, { Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import Constants from "expo-constants";
+import { useEffect } from "react";
+import * as Speech from "expo-speech";
 
 const GOOGLE_MAPS_APIKEY = Constants.expoConfig.extra.GOOGLE_MAPS_APIKEY;
 
-export default function BusRoutePage({ step, transitDetails, transitStops, origin, destination, onNextStep }) {
-  const transitDetail = transitDetails.find((detail) => detail.stepNumber === step.step_number) || {};
+export default function BusRoutePage({
+  step,
+  transitDetails,
+  transitStops,
+  origin,
+  destination,
+  onNextStep,
+  currentStep,
+  parsed_route,
+  children
+}) {
+  const transitDetail =
+    transitDetails.find((detail) => detail.stepNumber === currentStep?.step_number) ||
+    {};
   const outboundStops = transitStops?.outbound?.U2 || [];
 
   // Create waypoints from outbound stops
@@ -29,17 +43,38 @@ export default function BusRoutePage({ step, transitDetails, transitStops, origi
   // Create array of stop names
   const stopNames = outboundStops.map((stop) => stop.CommonName);
 
+  // Speech announcement on mount
+  useEffect(() => {
+    const cleanInstruction = step.html_instructions?.replace(/<[^>]+>/g, "") || "Continue on bus";
+    const announcement = `
+      Bus route information. 
+      You are on step ${currentStep?.step_number} of ${parsed_route?.length}.
+      Take bus ${transitDetail.lineName || 'unknown'} from ${transitDetail.departureStop || 'current location'}.
+      Next stop is ${stopNames[1] || "unknown"}.
+      ${cleanInstruction}.
+      Your destination is ${transitDetail.arrivalStop || destination} arriving in ${step.duration || 'shortly'}.
+    `;
+    
+    Speech.speak(announcement, { 
+      language: "en-GB",
+      rate: 0.8 // Slightly slower for clarity
+    });
+
+    return () => Speech.stop(); // Cleanup on unmount
+  }, [step, transitDetail, currentStep]);
+
   return (
     <View style={styles.container}>
-    
       <RouteSummary
         departureStop={transitDetail.departureStop}
         arrivalStop={transitDetail.arrivalStop}
         lineName={transitDetail.lineName}
+        currentStep={currentStep}
+        parsed_route={parsed_route}
       />
       <Body>
         <NextStop
-          nextStop={stopNames[1] || "Next Stop"} // Example: Use second stop as next
+          nextStop={stopNames[1] || "Next Stop"}
           duration={step.duration}
         />
         <Destination
@@ -57,16 +92,28 @@ export default function BusRoutePage({ step, transitDetails, transitStops, origi
             }}
           >
             <Marker
-              coordinate={{ latitude: step.start_location.lat, longitude: step.start_location.lng }}
+              coordinate={{
+                latitude: step.start_location.lat,
+                longitude: step.start_location.lng,
+              }}
               title="Start"
             />
             <Marker
-              coordinate={{ latitude: step.end_location.lat, longitude: step.end_location.lng }}
+              coordinate={{
+                latitude: step.end_location.lat,
+                longitude: step.end_location.lng,
+              }}
               title="End"
             />
             <MapViewDirections
-              origin={{ latitude: step.start_location.lat, longitude: step.start_location.lng }}
-              destination={{ latitude: step.end_location.lat, longitude: step.end_location.lng }}
+              origin={{
+                latitude: step.start_location.lat,
+                longitude: step.start_location.lng,
+              }}
+              destination={{
+                latitude: step.end_location.lat,
+                longitude: step.end_location.lng,
+              }}
               waypoints={waypoints}
               apikey={GOOGLE_MAPS_APIKEY}
               strokeWidth={3}
@@ -82,7 +129,26 @@ export default function BusRoutePage({ step, transitDetails, transitStops, origi
             ))}
           </MapView>
         </View>
-        <Support />
+      {children}
+        {/* <Support /> */}
+        <TouchableOpacity
+          style={styles.repeatButton}
+          onPress={() => {
+            const cleanInstruction = step.html_instructions?.replace(/<[^>]+>/g, "") || "Continue on bus";
+            const announcement = `
+              Repeating instructions:
+              Take bus ${transitDetail.lineName} from ${transitDetail.departureStop}.
+              Next stop is ${stopNames[1] || "unknown"}.
+              ${cleanInstruction}.
+              Arriving at ${transitDetail.arrivalStop} in ${step.duration}.
+            `;
+            Speech.speak(announcement, { language: "en-GB" });
+          }}
+          accessibilityLabel="Repeat instructions"
+          accessibilityHint="Repeats the current bus route information"
+        >
+          <Text style={styles.repeatButtonText}>Repeat Instructions</Text>
+        </TouchableOpacity>
       </Body>
     </View>
   );
@@ -125,17 +191,19 @@ function Destination({ arrivalStop, duration }) {
   return (
     <View style={nextStopStyles.container}>
       <Text style={nextStopStyles.title}>Your Destination: {arrivalStop}</Text>
-      <View style={nextStopStyles.infoRow}>
+      {/* <View style={nextStopStyles.infoRow}>
         <FontAwesomeIcon icon={faInfoCircle} color="#0e766f" />
         <Text style={nextStopStyles.text}>Arriving in {duration}</Text>
       </View>
       <View style={nextStopStyles.infoRow}>
         <FontAwesomeIcon icon={faClock} color="#0e766f" />
-        <Text style={nextStopStyles.text}>You will receive alerts as you get closer</Text>
-      </View>
+        <Text style={nextStopStyles.text}>
+          You will receive alerts as you get closer
+        </Text>
+      </View> */}
       <TouchableOpacity style={nextStopStyles.button}>
         <FontAwesomeIcon icon={faHandPointer} color="#ffffff" />
-        <Text style={nextStopStyles.buttonText}>Get me off this bus!</Text>
+        <Text style={nextStopStyles.buttonText}>I need assistance!</Text>
       </TouchableOpacity>
     </View>
   );
@@ -160,14 +228,15 @@ function Body({ children }) {
   return <View style={styles.body}>{children}</View>;
 }
 
-function RouteSummary({ departureStop, arrivalStop, lineName }) {
-  const progress = 50; // Placeholder: Calculate based on actual progress
+function RouteSummary({ departureStop, arrivalStop, lineName, currentStep, parsed_route }) {
+  const progress = ((currentStep?.step_number / parsed_route?.length) * 100) || 50;
 
   return (
     <View style={routeSummaryStyles.container}>
       <View style={styles.currentJourneyContainer}>
         <FontAwesomeIcon icon={faMapMarkerAlt} color="#ffffff" />
         <View style={styles.journeyTextContainer}>
+          <Text style={styles.stepText}>Step {currentStep?.step_number} of {parsed_route?.length}</Text>
           <Text style={routeSummaryStyles.text}>Current Journey</Text>
           <Text style={styles.journeySubText}>
             Bus {lineName} from {departureStop} to {arrivalStop}
@@ -181,7 +250,9 @@ function RouteSummary({ departureStop, arrivalStop, lineName }) {
         </View>
         <View style={styles.progressBarContainer}>
           <View style={[styles.completedProgress, { width: `${progress}%` }]} />
-          <View style={[styles.remainingProgress, { width: `${100 - progress}%` }]} />
+          <View
+            style={[styles.remainingProgress, { width: `${100 - progress}%` }]}
+          />
           <View style={[styles.busIconContainer, { left: `${progress}%` }]}>
             <View style={styles.busIcon}>
               <FontAwesomeIcon icon={faBus} color="#0e766f" size={12} />
@@ -189,8 +260,8 @@ function RouteSummary({ departureStop, arrivalStop, lineName }) {
           </View>
         </View>
         <View style={styles.locationHeader}>
-          <Text style={styles.locationText}>2 stops passed</Text>
-          <Text style={styles.locationText}>2 stops remaining</Text>
+          <Text style={styles.locationText}>{currentStep?.step_number - 1 || 0} steps completed</Text>
+          <Text style={styles.locationText}>{parsed_route?.length - currentStep?.step_number || 0} steps remaining</Text>
         </View>
       </View>
     </View>
@@ -273,6 +344,26 @@ const styles = StyleSheet.create({
     borderColor: "#0e766f",
     justifyContent: "center",
     alignItems: "center",
+  },
+  stepText: {
+    color:'#ffffff',
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 10,
+    textAlign: "center",
+  },
+  repeatButton: {
+    backgroundColor: "#0e766f",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 15,
+    marginBottom: 10,
+  },
+  repeatButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 
